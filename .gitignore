@@ -1,0 +1,8 @@
+data/*
+*.egg-info
+__pycache__
+
+# Ignore everything inside the Data folder
+data/*
+# Except this .gitkeep file to keep the empty folder.
+!data/.gitkeep
