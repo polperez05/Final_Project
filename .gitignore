@@ -2,7 +2,14 @@ data/*
 *.egg-info
 __pycache__
 
+.venv
 # Ignore everything inside the Data folder
+# Ignorar toda la carpeta data
 data/*
-# Except this .gitkeep file to keep the empty folder.
+
+# Excepto .gitkeep
 !data/.gitkeep
+
+# Excepto este archivo específico
+!data/raw/listings.csv.gz
+
