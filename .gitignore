@@ -12,4 +12,3 @@ data/*
 
 # Excepto este archivo específico
 !data/raw/listings.csv.gz
-
