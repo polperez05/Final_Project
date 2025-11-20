@@ -20,7 +20,7 @@ class Place:
         self.area = (x >= n/2) + 2 * (y >= n/2) # we define the area of the city (0,1,2,3)
 
         min, max = self.city.area_rates[self.area] # we separate the contraint in min and max of the area
-        self.rate = rd.randit(min, max)  # we can use uniform to get a float value
+        self.rate = rd.randint(min, max)  # we can use uniform to get a float value
 
         self.price = {0: 900*self.rate} # set the stating steps(keys) and price(values)
 
@@ -31,10 +31,10 @@ class Place:
         avg_area_rates = sum([(min+max)/2 for min, max in self.city.area_rates]) / len(self.city.area_rates) # we calculate the average rate of all the area
 
         if self.rate > avg_area_rates:    # in case the rate of the place is higher than the average rate of all the area it will generetate between 5 and 15 days of occupancy
-            self.occupancy = rd.randit(5,15)
+            self.occupancy = rd.randint(5,15)
 
         else:
-            self.occupancy = rd.randit(10,20) # else it will generate between 10 and 20 days of occupancy
+            self.occupancy = rd.randint(10,20) # else it will generate between 10 and 20 days of occupancy
 
         return self.occupancy
 
