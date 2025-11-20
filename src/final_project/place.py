@@ -26,15 +26,19 @@ class Place:
 
         return self.neighbours, self.area, self.rate, self.price
 
-    def update_occupancy(self,area, occupancy, area_rates, rates):
+    def update_occupancy(self, area, occupancy, area_rates, rates):
         self.occupancy = 0
-        avg_area_rates = sum([(min+max)/2 for min, max in self.city.area_rates]) / len(self.city.area_rates) # we calculate the average rate of all the area
+        
+        # Calculate the average rate of all areas in the city
+        avg_area_rates = sum([(min_val+max_val)/2 for min_val, max_val in self.city.area_rates.values()]) / len(self.city.area_rates) 
 
-        if self.rate > avg_area_rates:    # in case the rate of the place is higher than the average rate of all the area it will generetate between 5 and 15 days of occupancy
+        # Determine occupancy based on the listing's rate compared to the average
+        if self.rate > avg_area_rates:    
+            # If rate is higher than average, occupancy is lower (5 to 15 days)
             self.occupancy = rd.randint(5,15)
-
         else:
-            self.occupancy = rd.randint(10,20) # else it will generate between 10 and 20 days of occupancy
+            # If rate is lower/equal, occupancy is higher (10 to 20 days)
+            self.occupancy = rd.randint(10,20) 
 
         return self.occupancy
 
