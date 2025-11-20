@@ -97,10 +97,7 @@ def main():
     plt.savefig('reports/graph2_v0.png')
     plt.close()
 
-    print("Done! Check the 'reports' folder.")
-
-if __name__ == "__main__":
-    main()
+    print("Done! The graph are in the reports folder.")
 
 if __name__ == "__main__":
     main()
