@@ -60,6 +60,9 @@ class Host():
         for pid in opportunities:
             place = self.city.places[pid]
             ask_price = list(place.price.values())[-1]
+
+        # Version 0: Hosts bid all their profits.
+            
             if self.profits >= ask_price:
                 bid = {
                     'place_id': pid,
@@ -69,5 +72,14 @@ class Host():
                     'bid_price': self.profits
                 }
                 bids.append(bid)
+
+        # Version 1: Hosts bid the asking price + 10%
+                
+            if self.city.rule_version == 1:
+                bid_price = ask_price * 1.10
+                # If we cannot afford the moderate bid, we don't bid
+                if self.profits < bid_price:
+                    continue
+        
         # Return a list with all the bids the host will make.
         return bids
