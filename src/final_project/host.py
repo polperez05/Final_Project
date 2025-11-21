@@ -56,30 +56,42 @@ class Host():
                 adjacent_place = self.city.places[adjacent_id]
                 if adjacent_place.host_id != self.host_id:
                     opportunities.add(adjacent_id)
+        
         # For each opportunity, create a bid if the current profits are greater than the ask price.
         for pid in opportunities:
             place = self.city.places[pid]
             ask_price = list(place.price.values())[-1]
-
-        # Version 0: Hosts bid all their profits.
             
-            if self.profits >= ask_price:
-                bid = {
-                    'place_id': pid,
-                    'seller_id': place.host_id,
-                    'buyer_id': self.host_id,
-                    'spread': self.profits - ask_price,
-                    'bid_price': self.profits
-                }
-                bids.append(bid)
-
-        # Version 1: Hosts bid the asking price + 10%
-                
-            if self.city.rule_version == 1:
+            # We check which rule version the city is currently running
+            # Version 1: Rational strategy (bid asking price + 10%)
+            if hasattr(self.city, 'rule_version') and self.city.rule_version == 1:
                 bid_price = ask_price * 1.10
-                # If we cannot afford the moderate bid, we don't bid
-                if self.profits < bid_price:
-                    continue
+                
+                # We only bid if we can afford the new price
+                if self.profits >= bid_price:
+                    bid = {
+                        'place_id': pid,
+                        'seller_id': place.host_id,
+                        'buyer_id': self.host_id,
+                        'spread': self.profits - ask_price, # Spread remains based on total wealth power
+                        'bid_price': bid_price
+                    }
+                    bids.append(bid)
+
+            # Version 0: Original aggressive strategy (bid all profits)
+            else:
+                if self.profits >= ask_price:
+                    bid = {
+                        'place_id': pid,
+                        'seller_id': place.host_id,
+                        'buyer_id': self.host_id,
+                        'spread': self.profits - ask_price,
+                        'bid_price': self.profits
+                    }
+                    bids.append(bid)
+                    
+        # Return a list with all the bids the host will make.
+        return bids
         
         # Return a list with all the bids the host will make.
         return bids
