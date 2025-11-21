@@ -83,14 +83,14 @@ def main():
     plt.bar(ids, wealths, color=bar_colors)
     plt.xlim(-0.5, len(ids) - 0.5)
     plt.xlabel('Host ID (Sorted by Wealth)')
-    plt.ylabel('Total Wealth (Log Scale)')
+    plt.ylabel('Total Wealth')
     plt.title('Final Wealth of Hosts by Area')
 
     legend_handles = [
-        mpatches.Patch(color='red', label='Area 0 (Low)'),
-        mpatches.Patch(color='blue', label='Area 1 (Mid-Low)'),
-        mpatches.Patch(color='green', label='Area 2 (Mid-High)'),
-        mpatches.Patch(color='orange', label='Area 3 (High)')
+        mpatches.Patch(color='red', label='Area 0'),
+        mpatches.Patch(color='blue', label='Area 1'),
+        mpatches.Patch(color='green', label='Area 2'),
+        mpatches.Patch(color='orange', label='Area 3')
     ]
     plt.legend(handles=legend_handles, title="City Areas")
     
