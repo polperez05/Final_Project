@@ -80,7 +80,7 @@ def main():
     bar_colors = [colors_map[a] for a in areas]
 
     plt.figure(figsize=(12, 6))
-    plt.bar(ids, wealths, color=bar_colors, width=1.0)
+    plt.bar(ids, wealths, color=bar_colors)
     plt.xlim(-0.5, len(ids) - 0.5)
     plt.xlabel('Host ID (Sorted by Wealth)')
     plt.ylabel('Total Wealth (Log Scale)')
