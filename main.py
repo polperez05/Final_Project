@@ -4,7 +4,7 @@ import random as rd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src')) # Necessary for importing city
 
 from final_project.city import City
 
@@ -50,13 +50,13 @@ def main():
     if not os.path.exists('reports'):
         os.makedirs('reports')
 
-    # Version 0: Host bid all their profits
+    # Version 0: Hosts bid all their profits
     
     print("\n--- SCENARIO 0: Original Rules ---")
     city_v0, steps_v0, prices_v0 = run_simulation(rule_version=0)
 
-    # --- GRAPH 1: Wealth Distribution (from v0) ---
-    print("Generating graph1.png...")
+    # GRAPH 1: Wealth Distribution (from v0)
+    print("Generating graph1...")
     hosts_data = []
     for host in city_v0.hosts:
         properties_value = 0
@@ -84,9 +84,9 @@ def main():
     # Log scale to see everyone
     plt.yscale('log')
     
-    plt.xlabel('Host ID (Sorted by Wealth)')
-    plt.ylabel('Total Wealth (Log Scale)')
-    plt.title('Final Wealth of Hosts by Area (Original Rules)')
+    plt.xlabel('Host ID (Sorted by wealth)')
+    plt.ylabel('Total wealth (log scale)')
+    plt.title('Final wealth of hosts by area (Version 0)')
 
     legend_handles = [
         mpatches.Patch(color='red', label='Area 0'),
@@ -94,18 +94,18 @@ def main():
         mpatches.Patch(color='green', label='Area 2'),
         mpatches.Patch(color='orange', label='Area 3')
     ]
-    plt.legend(handles=legend_handles, title="City Areas")
+    plt.legend(handles=legend_handles, title="City areas")
     plt.xticks([])
     plt.savefig('reports/graph1.png')
     plt.close()
 
-    # --- GRAPH 2 v0: Price Evolution ---
-    print("Generating graph2_v0.png...")
+    # GRAPH 2 v0: Price Evolution
+    print("Generating graph2_v0...")
     plt.figure(figsize=(10, 6))
     plt.plot(steps_v0, prices_v0, color='purple', linewidth=2)
-    plt.xlabel('Simulation Step (Month)')
-    plt.ylabel('Average Listing Price')
-    plt.title('Evolution of Prices (Version 0: Host bid all their profits)')
+    plt.xlabel('Simulation step (months)')
+    plt.ylabel('Average listing price')
+    plt.title('Evolution of prices (Version 0: Hosts bid all their profits)')
     plt.grid(True)
     plt.savefig('reports/graph2_v0.png')
     plt.close()
@@ -116,17 +116,17 @@ def main():
     city_v1, steps_v1, prices_v1 = run_simulation(rule_version=1)
 
     # --- GRAPH 2 v1: Price Evolution ---
-    print("Generating graph2_v1.png...")
+    print("Generating graph2_v1...")
     plt.figure(figsize=(10, 6))
     plt.plot(steps_v1, prices_v1, color='green', linewidth=2)
-    plt.xlabel('Simulation Step (Month)')
-    plt.ylabel('Average Listing Price')
-    plt.title('Evolution of Prices (Version 1: Bid Asking + 10%)')
+    plt.xlabel('Simulation step (months)')
+    plt.ylabel('Average listing price')
+    plt.title('Evolution of prices (Version 1: Bid asking + 10%)')
     plt.grid(True)
     plt.savefig('reports/graph2_v1.png')
     plt.close()
 
-    print("\nDone! Check the reports folder.")
+    print("Done! Check the reports folder.")
 
 if __name__ == "__main__":
     main()
