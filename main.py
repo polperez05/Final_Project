@@ -64,34 +64,28 @@ def main():
             'area': host.area
         })
 
-    # Ordenar de menor a mayor riqueza
     hosts_data.sort(key=lambda x: x['wealth'])
 
     # --- PLOTTING ---
     if not os.path.exists('reports'):
         os.makedirs('reports')
 
-    # === GRAPH 1: Wealth Distribution ===
+    # === GRAPH 1: Wealth Distribution (MEJORADO) ===
     print("Generating graph1.png...")
     
     ids = [str(d['host_id']) for d in hosts_data]
     wealths = [d['wealth'] for d in hosts_data]
     areas = [d['area'] for d in hosts_data]
-    
-    # Mapa de colores
     colors_map = {0: 'red', 1: 'blue', 2: 'green', 3: 'orange'}
     bar_colors = [colors_map[a] for a in areas]
 
     plt.figure(figsize=(12, 6))
-    
-    plt.bar(ids, wealths, color=bar_colors)
-    plt.yscale('log') 
+    plt.bar(ids, wealths, color=bar_colors, width=1.0)
+    plt.xlim(-0.5, len(ids) - 0.5)
     plt.xlabel('Host ID (Sorted by Wealth)')
     plt.ylabel('Total Wealth (Log Scale)')
     plt.title('Final Wealth of Hosts by Area')
-    
-    # Legend
-    
+
     legend_handles = [
         mpatches.Patch(color='red', label='Area 0 (Low)'),
         mpatches.Patch(color='blue', label='Area 1 (Mid-Low)'),
@@ -100,7 +94,7 @@ def main():
     ]
     plt.legend(handles=legend_handles, title="City Areas")
     
-    plt.xticks([]) # Ocultamos los números del eje X para que quede limpio
+    plt.xticks([])
     
     plt.savefig('reports/graph1.png')
     plt.close()
