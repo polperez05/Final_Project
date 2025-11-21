@@ -7,9 +7,10 @@ from final_project.place import Place
 
 class City:
 
-    def __init__(self, size, area_rates): 
+    def __init__(self, size, area_rates, version=0): 
         self.size = size 
         self.area_rates = area_rates 
+        self.version = version 
         self.step = 0 
         self.places = []
         self.hosts = []
