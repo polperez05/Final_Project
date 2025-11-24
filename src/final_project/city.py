@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import Dict, List
 
-# Imports assume all files are in the final_project package
+# Imports the Host and Place classes in this file
 from final_project.host import Host
 from final_project.place import Place
 
@@ -20,7 +20,7 @@ class City:
         # Initialize Places
         self.places = [Place(place_id=x, host_id=x, city=self) for x in range(n*n)] 
         
-        # Setup each place (neighbours, area, etc.)
+        # Run .setup() (Created in place.py) for each Place object
         for place in self.places:
             place.setup()
             
@@ -32,25 +32,28 @@ class City:
             return []
         
         df = pd.DataFrame(bids)
-        # Sort by spread descending [cite: 57]
+        # We Sort by spread in descending order and clean the index
         df = df.sort_values(by="spread", ascending=False).reset_index(drop=True)
 
+        # Create lists to track accepted bids, used buyers and sold places
         approved = []
         buyers_used = set() 
         places_sold = set() 
 
+        # we set the correct type for each column
         for _, row in df.iterrows():
             place_id = int(row["place_id"])
             buyer_id = int(row["buyer_id"])
             seller_id = int(row["seller_id"])
             bid_price = float(row["bid_price"])
 
-            # Check availability [cite: 58]
+            # Check availability and skip if already occupied
             if buyer_id in buyers_used:
                 continue
             if place_id in places_sold:
                 continue
 
+            # Record of the approved bids
             approved.append({
                 "place_id": place_id,
                 "seller_id": seller_id,
@@ -64,22 +67,24 @@ class City:
         return approved
     
     def execute_transactions(self, transactions: List[Dict]):
+        
+        # Process each approved transaction and extract ID and price
         for tx in transactions:
             place_id = tx["place_id"]
             buyer_id = tx["buyer_id"]
             seller_id = tx["seller_id"]
             price = float(tx["bid_price"])
 
-            # Retrieve objects. Since list index = ID, we can access directly.
+            # Retrieve objects
             buyer = self.hosts[buyer_id]
             seller = self.hosts[seller_id]
             place = self.places[place_id]
 
-            # Transfer funds [cite: 64]
+            # Transfer funds 
             buyer.profits -= price
             seller.profits += price
 
-            # Update ownership [cite: 64]
+            # Update ownership
             seller.assets.discard(place_id)
             buyer.assets.add(place_id)
             place.host_id = buyer_id
@@ -88,39 +93,35 @@ class City:
             place.price[self.step] = price
 
     def clear_market(self):
-        # Collect all bids [cite: 67]
+        # We will create a new list and then run for each host and record their bids 
         all_bids = []
-        # self.hosts is a list, so we iterate directly (no .values())
+
         for host in self.hosts: 
             all_bids.extend(host.make_bids())
 
-        # Approve bids
+        # Pass all colected bids to approve_bids to sort and filter them
         approved = self.approve_bids(all_bids)
 
-        # Execute transactions [cite: 68]
+        # Execute transactions
         if approved:
             self.execute_transactions(approved)
 
         return approved
     
     def iterate(self):
-        # 1. Update occupancy
-        # Note: place.update_occupancy in your partner's code has too many arguments.
-        # It should ideally be just place.update_occupancy(). 
-        # Assuming your partner fixes it, or uses default args:
+        # Update occupancy for each place
         for place in self.places:
-            # We assume the method signatures are fixed in place.py
-            # If not, this line might need arguments like (place.area, ..., ...)
+
             place.update_occupancy(place.area, 0, self.area_rates, 0) 
 
-        # 2. Update profits
+        # Update profits for each host
         for host in self.hosts:
             host.update_profits()
 
-        # 3. Clear market
+        #  Clear market
         transactions = self.clear_market()
 
-        # 4. Advance step [cite: 70]
+        # 4. Advance one step
         self.step += 1
 
         return transactions
