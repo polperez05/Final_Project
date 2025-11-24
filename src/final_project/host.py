@@ -92,6 +92,3 @@ class Host():
                     
         # Return a list with all the bids the host will make.
         return bids
-        
-        # Return a list with all the bids the host will make.
-        return bids

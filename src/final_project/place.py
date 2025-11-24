@@ -26,7 +26,7 @@ class Place:
 
         return self.neighbours, self.area, self.rate, self.price
 
-    def update_occupancy(self, area, occupancy, area_rates, rates):
+    def update_occupancy(self):
         self.occupancy = 0
         
         # Calculate the average rate of all areas in the city

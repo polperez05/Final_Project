@@ -112,7 +112,7 @@ class City:
         # Update occupancy for each place
         for place in self.places:
 
-            place.update_occupancy(place.area, 0, self.area_rates, 0) 
+            place.update_occupancy()
 
         # Update profits for each host
         for host in self.hosts:
