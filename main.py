@@ -46,9 +46,6 @@ def run_simulation(rule_version):
     return city, history_steps, history_avg_prices
 
 def main():
-    # Create reports folder if needed
-    if not os.path.exists('reports'):
-        os.makedirs('reports')
 
     # Version 0: Hosts bid all their profits
     
