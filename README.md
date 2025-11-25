@@ -1,12 +1,10 @@
 Usernames -> Full names:
 polperez05 -> Pol Perez Gonzalez
-ferranquiros -> Ferran Quiros Ganga
-helliot-molly -> Helliot Molly
-HectorGf22 -> Hector Garcia Franco
+ferranquiros -> Ferran Quirós Ganga
+elliot-molly -> Elliot Molly
+HectorGF22 -> Héctor García Franco
 
-Datasets Used:
-1) Barcelona listings 
-https://data.insideairbnb.com/spain/catalonia/barcelona/2025-09-14/data/listings.csv.gz
+Barcelona Datasets Used:
 2) December listings: 
 https://data.insideairbnb.com/spain/catalonia/barcelona/2024-12-12/data/listings.csv.gz
 3) March listings: listings05-03-2025.csv.gz
