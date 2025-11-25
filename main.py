@@ -49,7 +49,6 @@ def main():
 
     # Version 0: Hosts bid all their profits
     
-    print("\n--- SCENARIO 0: Original Rules ---")
     city_v0, steps_v0, prices_v0 = run_simulation(rule_version=0)
 
     # GRAPH 1: Wealth Distribution (from v0)
@@ -96,7 +95,7 @@ def main():
     plt.savefig('reports/graph1.png')
     plt.close()
 
-    # GRAPH 2 v0: Price Evolution
+    # GRAPH 2 v0: Price Evolution (original version)
     print("Generating graph2_v0...")
     plt.figure(figsize=(10, 6))
     plt.plot(steps_v0, prices_v0, color='purple', linewidth=2)
@@ -112,7 +111,6 @@ def main():
     print("\n--- SCENARIO 1: Modified Rules (+10% Bid) ---")
     city_v1, steps_v1, prices_v1 = run_simulation(rule_version=1)
 
-    # --- GRAPH 2 v1: Price Evolution ---
     print("Generating graph2_v1...")
     plt.figure(figsize=(10, 6))
     plt.plot(steps_v1, prices_v1, color='green', linewidth=2)
