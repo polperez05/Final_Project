@@ -111,7 +111,6 @@ class City:
     def iterate(self):
         # Update occupancy for each place
         for place in self.places:
-
             place.update_occupancy()
 
         # Update profits for each host

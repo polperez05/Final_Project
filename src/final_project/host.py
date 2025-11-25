@@ -16,7 +16,7 @@ class Host():
         self.host_id = host_id
         self.city = city
         self.profits = profits
-        # The host's area is the are of its initial place.
+        # The host's area is the area of its initial place.
         self.area = place.area
         # The host's assets are the set of all place_id's owned by the host taken form the Place class.
         self.assets = set([place.place_id])
@@ -26,7 +26,7 @@ class Host():
         Increases the host's profits depending on the rate and the occupancy (one iteration for each place_id the host owns).
         """
         monthly_earnings = 0
-        # For each place_id the host owns.
+        # For each place_id the host owns:
         for place_id in self.assets:
             # Retrieve the place object from the City class.
             place = self.city.places[place_id]
@@ -47,7 +47,7 @@ class Host():
         bids = []
         opportunities = set()
         
-        # Identify neighbouring listings to the listings he/she owns but are not owned by anyone.
+        # Identify neighbouring listings to the listings owned but are not owned by anyone.
         for my_place_id in self.assets:
             my_place = self.city.places[my_place_id]
             # Of each property the hosts owns, we check if the neighbouring properties are owned. If they are not, we add them
@@ -60,6 +60,7 @@ class Host():
         # For each opportunity, create a bid if the current profits are greater than the ask price.
         for pid in opportunities:
             place = self.city.places[pid]
+            # We retrieve the last ask price.
             ask_price = list(place.price.values())[-1]
             
             # We check which rule version the city is currently running
