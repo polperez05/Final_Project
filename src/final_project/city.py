@@ -80,7 +80,9 @@ class City:
             seller = self.hosts[seller_id]
             place = self.places[place_id]
 
-            # Transfer funds 
+            # Transfer funds
+            if buyer.profits < bid_price:
+                continue 
             buyer.profits -= price
             seller.profits += price
 
@@ -89,7 +91,7 @@ class City:
             buyer.assets.add(place_id)
             place.host_id = buyer_id
 
-            # Record price history [cite: 65]
+            # Record price history 
             place.price[self.step] = price
 
     def clear_market(self):
