@@ -73,7 +73,7 @@ class Host():
                         'place_id': pid,
                         'seller_id': place.host_id,
                         'buyer_id': self.host_id,
-                        'spread': self.profits - ask_price, # Spread remains based on total wealth power
+                        'spread': self.profits - ask_price,
                         'bid_price': bid_price
                     }
                     bids.append(bid)
