@@ -82,7 +82,8 @@ class City:
             place = self.places[place_id]
 
             # Transfer funds
-            if buyer.profits < bid_price:
+            if buyer.profits < price:
+                print(f"{buyer} don't have enough money, transaction canceled")
                 continue 
             buyer.profits -= price
             seller.profits += price

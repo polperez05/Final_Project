@@ -4,6 +4,7 @@ class Place:
         self.place_id = place_id 
         self.host_id = host_id 
         self.city = city 
+        self.occupancy = 0
     
     def setup(self):
         n = self.city.size  # set the size of the "city"
@@ -27,7 +28,6 @@ class Place:
         return self.neighbours, self.area, self.rate, self.price
 
     def update_occupancy(self):
-        self.occupancy = 0
         
         # Calculate the average rate of all areas in the city
         avg_area_rates = sum([(min_val+max_val)/2 for min_val, max_val in self.city.area_rates.values()]) / len(self.city.area_rates) 
