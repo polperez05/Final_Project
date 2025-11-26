@@ -8,9 +8,9 @@ from final_project.place import Place
 class City:
 
     def __init__(self, size, area_rates, rule_version=0): 
-        self.size = size 
-        self.area_rates = area_rates 
-        self.rule_version = rule_version 
+        self.size = size # sets size of the city grid (n means n x n places)
+        self.area_rates = area_rates # dictionary with min and max rates for each area
+        self.rule_version = rule_version # bidding strategy (0 = aggressive or 1 = rational)
         self.step = 0 
         self.places = []
         self.hosts = []
@@ -28,6 +28,7 @@ class City:
         self.hosts = [Host(host_id=x, place=self.places[x], city=self) for x in range(n*n)] 
 
     def approve_bids(self, bids: List[dict]):
+        # If there are no bids, return an empty list
         if not bids:
             return []
         
@@ -40,7 +41,7 @@ class City:
         buyers_used = set() 
         places_sold = set() 
 
-        # we set the correct type for each column
+        # We set the correct type for each column
         for _, row in df.iterrows():
             place_id = int(row["place_id"])
             buyer_id = int(row["buyer_id"])
